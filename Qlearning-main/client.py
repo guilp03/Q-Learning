@@ -13,7 +13,7 @@ Q_table = np.zeros((n_states*4, n_actions))
 n_episodes = 100
 
 #número de tentativas que ele tem a cada episode de chegar ao final
-max_iter_episode = 100
+max_iter_episode = 1000
 
 #probabilidade de ele explorar algo novo e não se atentar necessariamente ao melhor valor conhecido
 exploration_prob = 1.0
@@ -25,7 +25,7 @@ exploration_decreasing_decay = 0.1
 min_exploration_prob = 0.1
 
 #discount factor
-gamma = 0.7
+gamma = 0.9
 
 #learning rate
 alpha = 0.1
@@ -63,4 +63,5 @@ for i in range(n_episodes):
         print(exploration_prob)
     exploration_prob = max(min_exploration_prob, np.exp(-exploration_decreasing_decay*i))
     total_rewards_episode.append(total_episode_reward)
+print(Q_table)
 
