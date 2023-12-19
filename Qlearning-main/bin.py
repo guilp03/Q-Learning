@@ -7,7 +7,8 @@ n_actions = 3
 n_states = 24
 
 #tabela que guarda as recompensas de cada estado e ação
-Q_table = [[-9.08877411e+01, -1.01567786e+02, -1.04174897e+02],
+Q_table = [
+    [-9.08877411e+01, -1.01567786e+02, -1.04174897e+02],
  [-1.66615224e+02, -9.78591304e+01, -1.04013421e+02],
  [-1.59269452e+02, -1.04355864e+02, -1.04083982e+02],
  [-1.68287371e+02, -1.04066850e+02, -9.48598699e+01],
@@ -102,7 +103,8 @@ Q_table = [[-9.08877411e+01, -1.01567786e+02, -1.04174897e+02],
  [-1.00000000e-01,  1.98698143e+01, -1.00000000e-01],
  [-1.46975102e+01,  1.18333405e+00, -1.00000000e-01],
  [-2.00000000e-01, -1.63951860e-01,  1.04253862e+01],
- [ 1.28350857e+02, -1.00000000e-01,  6.16699596e-01]]
+ [ 1.28350857e+02, -1.00000000e-01,  6.16699596e-01]
+ ]
 
 #número de vezes que ele vai chegar ao final
 n_episodes = 100
@@ -111,7 +113,7 @@ n_episodes = 100
 max_iter_episode = 1000
 
 #probabilidade de ele explorar algo novo e não se atentar necessariamente ao melhor valor conhecido
-exploration_prob = 0.0
+exploration_prob = 0.05
 
 #uma vez que ele tenha ja conseguido chegar ao final uma vez, a necessidade de explorar diminui
 exploration_decreasing_decay = 0.0
@@ -146,7 +148,9 @@ for i in range(n_episodes):
         
         if reward == 300:
             done = True
-        
+            
+        Q_table[int(current_state, 2)][action_names.index(action)] = (1-alpha) * Q_table[int(current_state, 2)][action_names.index(action)] + alpha * (reward + gamma * max(Q_table[int(next_state, 2)]))
+        total_episode_reward = total_episode_reward + reward
         
         if done:
             break
